@@ -16,6 +16,17 @@
 #define kVRGCalendarViewDayWidth 44
 #define kVRGCalendarViewDayHeight 44
 
+#define kVRGCalendarViewTodayColor @"0x383838"
+#define kVRGCalendarViewADayColor @"aaaaaa"
+#define kVRGCalendarViewSelectedDayColor @"0x006dbc"
+#define kVRGCalendarViewADayBackground @"0xf3f3f3"
+
+#define kVRGCalendarViewDayFontType @"HelveticaNeue-Bold"
+#define kVRGCalendarViewWeekdayFontType @"HelveticaNeue"
+
+#define kVRGCalendarViewFontSize 17
+#define kVRGCalendarViewWeekdayFontSize 12
+
 @protocol VRGCalendarViewDelegate;
 @interface VRGCalendarView : UIView {
     id <VRGCalendarViewDelegate> delegate;
