@@ -283,7 +283,7 @@
     labelCurrentMonth.text = [formatter stringFromDate:self.currentMonth];
     [labelCurrentMonth sizeToFit];
     labelCurrentMonth.frameX = roundf(self.frame.size.width/2 - labelCurrentMonth.frameWidth/2);
-    labelCurrentMonth.frameY = 32;
+    labelCurrentMonth.frameY = kVRGCalendarViewCurrentMonthLabelFrameY;
     [formatter release];
     [currentMonth firstWeekDayInMonth];
     

@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+expanded.h"
 
+#define kVRGCalendarViewCurrentMonthLabelFrameY 32
+
 #define kVRGCalendarViewMonthArrowTopMargin 24
 #define kVRGCalendarViewMonthArrowWidth 50
 #define kVRGCalendarViewMonthArrowHeight 40
