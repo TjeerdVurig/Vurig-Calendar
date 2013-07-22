@@ -250,8 +250,14 @@
     self.markedDates=nil;
     self.markedColors=nil;
     
-    CGRect rectArrowLeft = CGRectMake(0, 0, 50, 40);
-    CGRect rectArrowRight = CGRectMake(self.frame.size.width-50, 0, 50, 40);
+    CGRect rectArrowLeft = CGRectMake(0,
+                                      kVRGCalendarViewMonthArrowTopMargin,
+                                      kVRGCalendarViewMonthArrowWidth,
+                                      kVRGCalendarViewMonthArrowHeight);
+    CGRect rectArrowRight = CGRectMake(self.frame.size.width-kVRGCalendarViewMonthArrowWidth,
+                                       kVRGCalendarViewMonthArrowTopMargin,
+                                       kVRGCalendarViewMonthArrowWidth,
+                                       kVRGCalendarViewMonthArrowHeight);
     
     //Touch either arrows or month in middle
     if (CGRectContainsPoint(rectArrowLeft, touchPoint)) {
@@ -277,7 +283,7 @@
     labelCurrentMonth.text = [formatter stringFromDate:self.currentMonth];
     [labelCurrentMonth sizeToFit];
     labelCurrentMonth.frameX = roundf(self.frame.size.width/2 - labelCurrentMonth.frameWidth/2);
-    labelCurrentMonth.frameY = 10;
+    labelCurrentMonth.frameY = 32;
     [formatter release];
     [currentMonth firstWeekDayInMonth];
     
@@ -292,7 +298,7 @@
     //Arrows
     int arrowSize = 12;
     int xmargin = 20;
-    int ymargin = 18;
+    int ymargin = 40;
     
     //Arrow Left
     CGContextBeginPath(context);
@@ -328,7 +334,7 @@
     for (int i =0; i<[weekdays count]; i++) {
         NSString *weekdayValue = (NSString *)[weekdays objectAtIndex:i];
         UIFont *font = [UIFont fontWithName:kVRGCalendarViewWeekdayFontType size:kVRGCalendarViewWeekdayFontSize];
-        [weekdayValue drawInRect:CGRectMake(i*(kVRGCalendarViewDayWidth+2), 40, kVRGCalendarViewDayWidth+2, 20) withFont:font lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+        [weekdayValue drawInRect:CGRectMake(i*(kVRGCalendarViewDayWidth+2), ymargin + 24, kVRGCalendarViewDayWidth+2, xmargin) withFont:font lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
     }
     
     int numRows = [self numRows];
