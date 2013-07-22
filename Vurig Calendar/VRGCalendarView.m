@@ -454,25 +454,31 @@
         NSString *date = [NSString stringWithFormat:@"%i",targetDate];
         
         //draw selected date
+        BOOL isSelectedDateColorSet = FALSE;
+        UIColor *tmpDayColor = [[UIColor alloc] init];
         if (selectedDate && i==selectedDateBlock) {
-            CGRect rectangleGrid = CGRectMake(targetX,targetY,kVRGCalendarViewDayWidth+2,kVRGCalendarViewDayHeight+2);
-            CGContextAddRect(context, rectangleGrid);
-            CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:kVRGCalendarViewSelectedDayColor].CGColor);
-            CGContextFillPath(context);
-            
-            CGContextSetFillColorWithColor(context,
-                                           [UIColor whiteColor].CGColor);
+            tmpDayColor = [UIColor colorWithHexString:kVRGCalendarViewSelectedDayColor];
+            isSelectedDateColorSet = TRUE;
         } else if (todayBlock==i) {
+            tmpDayColor = [UIColor colorWithHexString:kVRGCalendarViewSelectedDayColor];
+            isSelectedDateColorSet = TRUE;
+        }
+        
+        if (isSelectedDateColorSet) {
+        
             CGRect rectangleGrid = CGRectMake(targetX,targetY,kVRGCalendarViewDayWidth+2,kVRGCalendarViewDayHeight+2);
             CGContextAddRect(context, rectangleGrid);
-            CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:kVRGCalendarViewTodayColor].CGColor);
+            
+            CGContextSetFillColorWithColor(context, tmpDayColor.CGColor);
             CGContextFillPath(context);
             
             CGContextSetFillColorWithColor(context,
                                            [UIColor whiteColor].CGColor);
         }
-        
-        [date drawInRect:CGRectMake(targetX+2, targetY+10, kVRGCalendarViewDayWidth, kVRGCalendarViewDayHeight) withFont:[UIFont fontWithName:kVRGCalendarViewDayFontType size:kVRGCalendarViewFontSize] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+        [date drawInRect:CGRectMake(targetX+2, targetY+10, kVRGCalendarViewDayWidth, kVRGCalendarViewDayHeight)
+                withFont:[UIFont fontWithName:kVRGCalendarViewDayFontType size:kVRGCalendarViewFontSize]
+                lineBreakMode:UILineBreakModeClip
+                alignment:UITextAlignmentCenter];
     }
     
     //    CGContextClosePath(context);
