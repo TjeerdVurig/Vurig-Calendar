@@ -434,25 +434,22 @@
         int targetX = targetColumn * (kVRGCalendarViewDayWidth+2);
         int targetY = kVRGCalendarViewTopBarHeight + targetRow * (kVRGCalendarViewDayHeight+2);
         
+        NSString *hex;
         // BOOL isCurrentMonth = NO;
         if (i<firstWeekDay) { //previous month
             targetDate = (prevMonthNumDays-firstWeekDay)+(i+1);
-            NSString *hex = (isSelectedDatePreviousMonth) ? kVRGCalendarViewTodayColor : kVRGCalendarViewADayColor;
-            
-            CGContextSetFillColorWithColor(context,
-                                           [UIColor colorWithHexString:hex].CGColor);
+            hex = (isSelectedDatePreviousMonth) ? kVRGCalendarViewTodayColor : kVRGCalendarViewADayColor;
         } else if (i>=(firstWeekDay+currentMonthNumDays)) { //next month
             targetDate = (i+1) - (firstWeekDay+currentMonthNumDays);
-            NSString *hex = (isSelectedDateNextMonth) ? kVRGCalendarViewTodayColor : kVRGCalendarViewADayColor;
-            CGContextSetFillColorWithColor(context,
-                                           [UIColor colorWithHexString:hex].CGColor);
+            hex = (isSelectedDateNextMonth) ? kVRGCalendarViewTodayColor : kVRGCalendarViewADayColor;
         } else { //current month
             // isCurrentMonth = YES;
             targetDate = (i-firstWeekDay)+1;
-            NSString *hex = (isSelectedDatePreviousMonth || isSelectedDateNextMonth) ? kVRGCalendarViewADayColor : kVRGCalendarViewTodayColor;
-            CGContextSetFillColorWithColor(context,
-                                           [UIColor colorWithHexString:hex].CGColor);
+            hex = (isSelectedDatePreviousMonth || isSelectedDateNextMonth) ? kVRGCalendarViewADayColor : kVRGCalendarViewTodayColor;
         }
+        
+        CGContextSetFillColorWithColor(context,
+                                       [UIColor colorWithHexString:hex].CGColor);
         
         NSString *date = [NSString stringWithFormat:@"%i",targetDate];
         
