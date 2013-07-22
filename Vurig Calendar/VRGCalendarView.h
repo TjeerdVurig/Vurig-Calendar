@@ -10,7 +10,11 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+expanded.h"
 
-#define kVRGCalendarViewTopBarHeight 60
+#define kVRGCalendarViewMonthArrowTopMargin 24
+#define kVRGCalendarViewMonthArrowWidth 50
+#define kVRGCalendarViewMonthArrowHeight 40
+
+#define kVRGCalendarViewTopBarHeight 84
 #define kVRGCalendarViewWidth 320
 
 #define kVRGCalendarViewDayWidth 44
