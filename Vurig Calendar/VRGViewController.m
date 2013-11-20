@@ -30,9 +30,15 @@
 }
 
 -(void)calendarView:(VRGCalendarView *)calendarView switchedToMonth:(int)month targetHeight:(float)targetHeight animated:(BOOL)animated {
-    if (month==[[NSDate date] month]) {
+    NSDate* today = [NSDate date];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:today];
+    if (month==[components month]) {
         NSArray *dates = [NSArray arrayWithObjects:[NSNumber numberWithInt:1],[NSNumber numberWithInt:5], nil];
-        [calendarView markDates:dates];
+        NSArray *color = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor],nil];
+        [calendarView markDates:dates withColors:color];
     }
 }
 

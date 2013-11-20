@@ -6,6 +6,8 @@ Easy to use, simple, clean.
 
 Also animated :-)
 
+iOS 7 support
+
 ### Installation
 Copy the files from the calendar group to your own project.
 

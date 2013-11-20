@@ -10,11 +10,28 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+expanded.h"
 
-#define kVRGCalendarViewTopBarHeight 60
+#define kVRGCalendarViewCurrentMonthLabelFrameY 32
+
+#define kVRGCalendarViewMonthArrowTopMargin 24
+#define kVRGCalendarViewMonthArrowWidth 50
+#define kVRGCalendarViewMonthArrowHeight 40
+
+#define kVRGCalendarViewTopBarHeight 84
 #define kVRGCalendarViewWidth 320
 
 #define kVRGCalendarViewDayWidth 44
 #define kVRGCalendarViewDayHeight 44
+
+#define kVRGCalendarViewTodayColor @"0x383838"
+#define kVRGCalendarViewADayColor @"aaaaaa"
+#define kVRGCalendarViewSelectedDayColor @"0x006dbc"
+#define kVRGCalendarViewADayBackground @"0xf3f3f3"
+
+#define kVRGCalendarViewDayFontType @"HelveticaNeue-Bold"
+#define kVRGCalendarViewWeekdayFontType @"HelveticaNeue"
+
+#define kVRGCalendarViewFontSize 17
+#define kVRGCalendarViewWeekdayFontSize 12
 
 @protocol VRGCalendarViewDelegate;
 @interface VRGCalendarView : UIView {
