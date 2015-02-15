@@ -11,7 +11,7 @@ Copyright (c) 2012 Vurig. All rights reserved.<br />
 Migrated to Xcode 6 and iOS SDK 8.1<br />
 Fixed all deprecated code warning.<br />
 Fixed all 64-bit CPU support code warning.<br />
-added Multi-resolution support.<br />
+added Multi-resolution support. (for iPhone 6/6+)<br />
 
 #### A calendar view for iOS.
 Easy to use, simple, clean.
