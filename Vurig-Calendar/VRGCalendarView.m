@@ -509,7 +509,7 @@
         int targetX = targetColumn * (kVRGCalendarViewDayWidth+2) + 7;
         int targetY = kVRGCalendarViewTopBarHeight + targetRow * (kVRGCalendarViewDayHeight+2) + 38;
         
-        CGRect rectangle = CGRectMake(targetX,targetY,32,2);
+        CGRect rectangle = CGRectMake(targetX,targetY,kVRGCalendarViewDayWidth*0.75,2);
         CGContextAddRect(context, rectangle);
         
         UIColor *color;
