@@ -9,6 +9,7 @@ Copyright (c) 2012 Vurig. All rights reserved.<br />
 
 ### Update Notes
 Migrated to Xcode 6 and iOS SDK 8.1<br />
+Migrated to ARC<br />
 Fixed all deprecated code warning.<br />
 Fixed all 64-bit CPU support code warning.<br />
 added Multi-resolution support. (for iPhone 6/6+)<br />

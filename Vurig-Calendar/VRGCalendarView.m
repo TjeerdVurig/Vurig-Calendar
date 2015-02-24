@@ -57,7 +57,7 @@
     }
     
     self.markedColors = [NSArray arrayWithArray:colors];
-    [colors release];
+    //[colors release];
     
     [self setNeedsDisplay];
 }
@@ -112,7 +112,7 @@
     UIView *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kVRGCalendarViewTopBarHeight, kVRGCalendarViewWidth, targetSize-kVRGCalendarViewTopBarHeight)];
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
-    [animationHolder release];
+    //[animationHolder release];
     
     //Animate
     self.animationView_A = [[UIImageView alloc] initWithImage:imageCurrentMonth];
@@ -173,7 +173,7 @@
     
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
-    [animationHolder release];
+    //[animationHolder release];
     
     self.animationView_A = [[UIImageView alloc] initWithImage:imageCurrentMonth];
     self.animationView_B = [[UIImageView alloc] initWithImage:imagePreviousMonth];
@@ -281,7 +281,7 @@
     [labelCurrentMonth sizeToFit];
     labelCurrentMonth.frameX = roundf(self.frame.size.width/2 - labelCurrentMonth.frameWidth/2);
     labelCurrentMonth.frameY = 10;
-    [formatter release];
+    //[formatter release];
     [currentMonth firstWeekDayInMonth];
     
     CGContextClearRect(UIGraphicsGetCurrentContext(),rect);
@@ -570,6 +570,6 @@
     self.markedDates=nil;
     self.markedColors=nil;
     
-    [super dealloc];
+    //[super dealloc];
 }
 @end
