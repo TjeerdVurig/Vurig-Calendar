@@ -5,6 +5,9 @@
 //  Created by in 't Veen Tjeerd on 5/8/12.
 //  Copyright (c) 2012 Vurig Media. All rights reserved.
 //
+//  Modified by XueFei Yang on 2015-02-15.
+//  Copyright (c) 2015 XueFei Yang. All rights reserved.
+//
 
 #import "VRGCalendarView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -18,8 +21,8 @@
 
 #pragma mark - Select Date
 -(void)selectDate:(int)date {
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *comps = [gregorian components:NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit fromDate:self.currentMonth];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay fromDate:self.currentMonth];
     [comps setDay:date];
     self.selectedDate = [gregorian dateFromComponents:comps];
     
@@ -54,7 +57,7 @@
     }
     
     self.markedColors = [NSArray arrayWithArray:colors];
-    [colors release];
+    //[colors release];
     
     [self setNeedsDisplay];
 }
@@ -70,10 +73,10 @@
 #pragma mark - Set date to now
 -(void)reset {
     NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components =
-    [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                           NSDayCalendarUnit) fromDate: [NSDate date]];
+    [gregorian components:(NSCalendarUnitYear | NSCalendarUnitMonth |
+                           NSCalendarUnitDay) fromDate: [NSDate date]];
     self.currentMonth = [gregorian dateFromComponents:components]; //clean month
     
     [self updateSize];
@@ -109,7 +112,7 @@
     UIView *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kVRGCalendarViewTopBarHeight, kVRGCalendarViewWidth, targetSize-kVRGCalendarViewTopBarHeight)];
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
-    [animationHolder release];
+    //[animationHolder release];
     
     //Animate
     self.animationView_A = [[UIImageView alloc] initWithImage:imageCurrentMonth];
@@ -170,7 +173,7 @@
     
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
-    [animationHolder release];
+    //[animationHolder release];
     
     self.animationView_A = [[UIImageView alloc] initWithImage:imageCurrentMonth];
     self.animationView_B = [[UIImageView alloc] initWithImage:imagePreviousMonth];
@@ -278,7 +281,7 @@
     [labelCurrentMonth sizeToFit];
     labelCurrentMonth.frameX = roundf(self.frame.size.width/2 - labelCurrentMonth.frameWidth/2);
     labelCurrentMonth.frameY = 10;
-    [formatter release];
+    //[formatter release];
     [currentMonth firstWeekDayInMonth];
     
     CGContextClearRect(UIGraphicsGetCurrentContext(),rect);
@@ -328,7 +331,10 @@
     for (int i =0; i<[weekdays count]; i++) {
         NSString *weekdayValue = (NSString *)[weekdays objectAtIndex:i];
         UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-        [weekdayValue drawInRect:CGRectMake(i*(kVRGCalendarViewDayWidth+2), 40, kVRGCalendarViewDayWidth+2, 20) withFont:font lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+        NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        textStyle.lineBreakMode = NSLineBreakByClipping;
+        textStyle.alignment = NSTextAlignmentCenter;
+        [weekdayValue drawInRect:CGRectMake(i*(kVRGCalendarViewDayWidth+2), 40, kVRGCalendarViewDayWidth+2, 20) withAttributes:@{NSFontAttributeName:font, NSParagraphStyleAttributeName:textStyle}];
     }
     
     int numRows = [self numRows];
@@ -434,24 +440,19 @@
         int targetX = targetColumn * (kVRGCalendarViewDayWidth+2);
         int targetY = kVRGCalendarViewTopBarHeight + targetRow * (kVRGCalendarViewDayHeight+2);
         
+        UIColor *textColor;
+        
         // BOOL isCurrentMonth = NO;
         if (i<firstWeekDay) { //previous month
             targetDate = (prevMonthNumDays-firstWeekDay)+(i+1);
-            NSString *hex = (isSelectedDatePreviousMonth) ? @"0x383838" : @"aaaaaa";
-            
-            CGContextSetFillColorWithColor(context, 
-                                           [UIColor colorWithHexString:hex].CGColor);
+            textColor = [UIColor colorWithHexString:(isSelectedDateNextMonth) ? @"0x383838" : @"0xaaaaaa"];
         } else if (i>=(firstWeekDay+currentMonthNumDays)) { //next month
             targetDate = (i+1) - (firstWeekDay+currentMonthNumDays);
-            NSString *hex = (isSelectedDateNextMonth) ? @"0x383838" : @"aaaaaa";
-            CGContextSetFillColorWithColor(context, 
-                                           [UIColor colorWithHexString:hex].CGColor);
+            textColor = [UIColor colorWithHexString:(isSelectedDateNextMonth) ? @"0x383838" : @"0xaaaaaa"];
         } else { //current month
             // isCurrentMonth = YES;
             targetDate = (i-firstWeekDay)+1;
-            NSString *hex = (isSelectedDatePreviousMonth || isSelectedDateNextMonth) ? @"0xaaaaaa" : @"0x383838";
-            CGContextSetFillColorWithColor(context, 
-                                           [UIColor colorWithHexString:hex].CGColor);
+            textColor = [UIColor colorWithHexString: (isSelectedDatePreviousMonth || isSelectedDateNextMonth) ? @"0xaaaaaa" : @"0x383838"];
         }
         
         NSString *date = [NSString stringWithFormat:@"%i",targetDate];
@@ -462,20 +463,22 @@
             CGContextAddRect(context, rectangleGrid);
             CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"0x006dbc"].CGColor);
             CGContextFillPath(context);
-            
-            CGContextSetFillColorWithColor(context, 
-                                           [UIColor whiteColor].CGColor);
+            textColor = [UIColor whiteColor];
         } else if (todayBlock==i) {
             CGRect rectangleGrid = CGRectMake(targetX,targetY,kVRGCalendarViewDayWidth+2,kVRGCalendarViewDayHeight+2);
             CGContextAddRect(context, rectangleGrid);
             CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"0x383838"].CGColor);
             CGContextFillPath(context);
-            
-            CGContextSetFillColorWithColor(context, 
-                                           [UIColor whiteColor].CGColor);
+            textColor = [UIColor whiteColor];
         }
         
-        [date drawInRect:CGRectMake(targetX+2, targetY+10, kVRGCalendarViewDayWidth, kVRGCalendarViewDayHeight) withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+        
+        UIFont *textFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        textStyle.lineBreakMode = NSLineBreakByClipping;
+        textStyle.alignment = NSTextAlignmentCenter;
+        [date drawInRect:CGRectMake(targetX+2, targetY+10, kVRGCalendarViewDayWidth, kVRGCalendarViewDayHeight) withAttributes:@{NSFontAttributeName:textFont, NSParagraphStyleAttributeName:textStyle, NSForegroundColorAttributeName: textColor}];
+        
     }
     
     //    CGContextClosePath(context);
@@ -506,7 +509,7 @@
         int targetX = targetColumn * (kVRGCalendarViewDayWidth+2) + 7;
         int targetY = kVRGCalendarViewTopBarHeight + targetRow * (kVRGCalendarViewDayHeight+2) + 38;
         
-        CGRect rectangle = CGRectMake(targetX,targetY,32,2);
+        CGRect rectangle = CGRectMake(targetX,targetY,kVRGCalendarViewDayWidth*0.75,2);
         CGContextAddRect(context, rectangle);
         
         UIColor *color;
@@ -550,7 +553,7 @@
         labelCurrentMonth.backgroundColor=[UIColor whiteColor];
         labelCurrentMonth.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
         labelCurrentMonth.textColor = [UIColor colorWithHexString:@"0x383838"];
-        labelCurrentMonth.textAlignment = UITextAlignmentCenter;
+        labelCurrentMonth.textAlignment = NSTextAlignmentCenter;
         
         [self performSelector:@selector(reset) withObject:nil afterDelay:0.1]; //so delegate can be set after init and still get called on init
         //        [self reset];
@@ -567,6 +570,6 @@
     self.markedDates=nil;
     self.markedColors=nil;
     
-    [super dealloc];
+    //[super dealloc];
 }
 @end

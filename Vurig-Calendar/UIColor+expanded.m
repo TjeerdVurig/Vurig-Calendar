@@ -1,3 +1,8 @@
+//
+//  Modified by XueFei Yang on 2015-02-15.
+//  Copyright (c) 2015 XueFei Yang. All rights reserved.
+//
+
 #import "UIColor+Expanded.h"
 
 /*
@@ -315,12 +320,12 @@ static NSMutableDictionary *colorNameCache = nil;
 	const NSUInteger kMaxComponents = 4;
 	CGFloat c[kMaxComponents];
 	NSUInteger i = 0;
-	if (![scanner scanFloat:&c[i++]]) return nil;
+	if (![scanner scanDouble:&c[i++]]) return nil;
 	while (1) {
 		if ([scanner scanString:@"}" intoString:NULL]) break;
 		if (i >= kMaxComponents) return nil;
 		if ([scanner scanString:@"," intoString:NULL]) {
-			if (![scanner scanFloat:&c[i++]]) return nil;
+			if (![scanner scanDouble:&c[i++]]) return nil;
 		} else {
 			// either we're at the end of there's an unexpected character here
 			// both cases are error conditions

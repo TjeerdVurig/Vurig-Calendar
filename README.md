@@ -1,5 +1,18 @@
 VURIG Calendar
 =====================
+Modified by XueFei Yang on 2015/02/15<br />
+Copyright (c) 2015 XueFei Yang. All rights reserved.<br />
+<br />
+Created by in 't Veen Tjeerd on 2012/05/29.<br />
+Copyright (c) 2012 Vurig. All rights reserved.<br />
+<br />
+
+### Update Notes
+Migrated to Xcode 6 and iOS SDK 8.1<br />
+Migrated to ARC<br />
+Fixed all deprecated code warning.<br />
+Fixed all 64-bit CPU support code warning.<br />
+added Multi-resolution support. (for iPhone 6/6+)<br />
 
 #### A calendar view for iOS.
 Easy to use, simple, clean.
@@ -42,6 +55,7 @@ NSArray *color = [NSArray arrayWithObjects:[UIColor redColor],nil];
 </pre>
 
 ##License
+
 Vurig Calendar is released under the MIT License  
 http://opensource.org/licenses/MIT
 

@@ -4,6 +4,9 @@
 //  Created by Tjeerd in 't Veen on 12/1/11.
 //  Copyright (c) 2011 Vurig Media. All rights reserved.
 //
+//  Modified by XueFei Yang on 2015-02-15.
+//  Copyright (c) 2015 XueFei Yang. All rights reserved.
+//
 
 #import "UIView+convenience.h"
 

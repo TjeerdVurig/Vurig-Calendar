@@ -5,6 +5,9 @@
 //  Created by in 't Veen Tjeerd on 5/10/12.
 //  Copyright (c) 2012 Vurig Media. All rights reserved.
 //
+//  Modified by XueFei Yang on 2015-02-15.
+//  Copyright (c) 2015 XueFei Yang. All rights reserved.
+//
 
 #import "NSMutableArray+convenience.h"
 
@@ -16,14 +19,14 @@
 {
     if (to != from) {
         id obj = [self objectAtIndex:from];
-        [obj retain];
+        //[obj retain];
         [self removeObjectAtIndex:from];
         if (to >= [self count]) {
             [self addObject:obj];
         } else {
             [self insertObject:obj atIndex:to];
         }
-        [obj release];
+        //[obj release];
     }
 }
 

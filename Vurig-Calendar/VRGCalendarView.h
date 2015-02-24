@@ -11,9 +11,9 @@
 #import "UIColor+expanded.h"
 
 #define kVRGCalendarViewTopBarHeight 60
-#define kVRGCalendarViewWidth 320
+#define kVRGCalendarViewWidth [[UIScreen mainScreen] bounds].size.width
 
-#define kVRGCalendarViewDayWidth 44
+#define kVRGCalendarViewDayWidth ([[UIScreen mainScreen] bounds].size.width-12)/7
 #define kVRGCalendarViewDayHeight 44
 
 @protocol VRGCalendarViewDelegate;
@@ -44,6 +44,9 @@
 @property (nonatomic, retain) NSArray *markedColors;
 @property (nonatomic, getter = calendarHeight) float calendarHeight;
 @property (nonatomic, retain, getter = selectedDate) NSDate *selectedDate;
+
+//@property (nonatomic, strong) NSNumber *kVRGCalendarViewWidth;
+//@property (nonatomic, strong) NSNumber *kVRGCalendarViewDayWidth;
 
 -(void)selectDate:(int)date;
 -(void)reset;
